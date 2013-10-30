@@ -124,6 +124,17 @@ void gadget_print(gadget_t *gadgets)
 
 void gadget_destroy(gadget_t *gadgets)
 {
-    // TODO:
+    /* Destroy all child nodes (if any). */
+    if (gadgets->previous.head != NULL) {
+        gadget_list_item_t *cursor = gadgets->previous.head;
+        while (cursor != NULL) {
+            gadget_destroy(cursor->gadget);
+            free(cursor->gadget);
+            cursor = cursor->next;
+        }
+    }
+
+    /* Destroy the linked-list of children. */
+    gadget_list_destroy(&gadgets->previous);
 }
 
