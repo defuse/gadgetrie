@@ -1,4 +1,5 @@
 #include "gadget.h"
+#include "misc.h"
 
 #include <ctype.h>
 #include <stdio.h>
@@ -16,15 +17,6 @@ void gadget_init(gadget_t *gadgets)
     gadgets->virtual_address = 0;
     gadget_list_init(&gadgets->previous);
     gadgets->next = NULL;
-}
-
-int has_zero_byte(uint32_t n)
-{
-    if ((n & 0xFF) == 0 || ((n >> 8) & 0xFF) == 0 || ((n >> 16) & 0xFF) == 0 || ((n >> 24) & 0xFF) == 0) {
-        return 1;
-    } else {
-        return 0;
-    }
 }
 
 // Work backwards from an instruction to find the instructions that come before it.
@@ -95,23 +87,6 @@ void gadget_add(gadget_t *gadgets, unsigned char *buffer, size_t buffer_len, uin
             }
             work_backwards(gadgets, buffer, offset, i, MAX_BACKWARD_INSTRUCTIONS);
         }
-    }
-}
-
-void rstrip(char *text)
-{
-    int end;
-    for (end = strlen(text) - 1; end >= 0 && isspace(text[end]); end--)
-        ;
-    text[end+1] = 0;
-}
-
-void tab_to_space(char *text)
-{
-    while (*text != 0) {
-        if (*text == '\t')
-            *text = ' ';
-        text++;
     }
 }
 
