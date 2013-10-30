@@ -92,21 +92,32 @@ void gadget_add(gadget_t *gadgets, unsigned char *buffer, size_t buffer_len, uin
 
 void gadget_print(gadget_t *gadgets)
 {
+    /* If we're at a leaf node in the tree... */
     if (gadgets->previous.head == NULL) {
-        gadget_t *cursor = gadgets;
-        
+        /* ... print instructions from the leaf up to the root as a gadget. */
         x86_insn_t instr;
         char line[1000];
+        gadget_t *cursor = gadgets;
+        
         uint32_t virtual_address = gadgets->virtual_address;
+
         while (cursor != NULL) {
             x86_disasm(cursor->instr, cursor->instr_len, 0, 0, &instr);
             x86_format_insn(&instr, line, sizeof(line), intel_syntax);
             rstrip(line);
             tab_to_space(line);
-            printf("0x%08x: %-50s(ALT: 0x%08x)\n", virtual_address, line, cursor->virtual_address);
+
+            if (virtual_address == cursor->virtual_address) {
+                printf("0x%08x: %-50s\n", virtual_address, line);
+            } else {
+                printf("0x%08x: %-50s(ALT: 0x%08x)\n", virtual_address, line, cursor->virtual_address);
+            }
             virtual_address += cursor->instr_len;
+
+            /* Set cursor to its parent in the tree (closer to the RET). */
             cursor = cursor->next;
         }
+
         printf("-----------------------\n");
     } else {
         gadget_list_item_t *cursor = gadgets->previous.head;
