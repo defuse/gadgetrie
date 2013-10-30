@@ -7,7 +7,7 @@
 
 #include <string.h>
 
-/* This is defined in gadget.h. */
+/* gadget_t is defined in gadget.h. */
 typedef struct GadgetTree gadget_t;
 typedef struct GadgetListItem gadget_list_item_t;
 typedef struct GadgetList gadget_list_t;
