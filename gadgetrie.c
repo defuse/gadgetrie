@@ -11,22 +11,13 @@
 
 #include "gadget.h"
 
-#define TEST_INSTRS "\xFF\xE0\xC3\x31\xC0\xC3\x40\xC3\xFF\xE0\xC3\x31\xC0\xC3\x40\xC3"
-#define TEST_INSTRS_LEN 16
-/*
-JMP EAX
-RET
-XOR EAX, EAX
-RET
-INC EAX
-RET
-JMP EAX
-RET
-XOR EAX, EAX
-RET
-INC EAX
-RET
-*/
+/* 
+ * ADD EAX, 0x585B595A
+ * RET
+ */
+#define TEST_INSTRS "\x05\x5A\x59\x5B\x58\xC3\x50\xC3"
+#define TEST_INSTRS_LEN 8
+
 
 void print_usage(void);
 void test(void);
