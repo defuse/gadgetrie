@@ -94,7 +94,7 @@ void gadget_print(gadget_t *gadgets)
 {
     /* If we're at a leaf node in the tree... */
     if (gadgets->previous.head == NULL) {
-        /* ... print instructions from the leaf up to the root as a gadget. */
+        /* Print instructions from the leaf up to the root as a gadget. */
         x86_insn_t instr;
         char line[1000];
         gadget_t *cursor = gadgets;
@@ -113,6 +113,7 @@ void gadget_print(gadget_t *gadgets)
 
         printf("-----------------------\n");
     } else {
+        /* We're not at a leaf, so recursively print all of the children. */
         gadget_list_item_t *cursor = gadgets->previous.head;
         while (cursor != NULL) {
             gadget_print(cursor->gadget);
