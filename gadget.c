@@ -45,8 +45,13 @@ work_backwards(gadget_t *gadgets, unsigned char *buffer, uint32_t offset, int po
             break;
         instr_actual_size = x86_disasm(buffer + instr_start, instr_size, 0, 0, &instr);
 
-        // If _all_ of those bytes make up one instruction, add it to the tree.
-        if (instr_actual_size == instr_size) {
+        /* 
+         * If *all* of those bytes make up one instruction, and it's not
+         * a return (gadgets should not contain a RET other than at the end),
+         * add it to the tree.
+         */
+        if (instr_actual_size == instr_size &&
+                !(instr_size == 1 && *(buffer + instr_start) == RET)) {
 
             // If we've already seen this sequence of instructions...
             gadget_t *g;
