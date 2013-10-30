@@ -7,15 +7,9 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdint.h>
-#include <libdis.h>
 
 void gadget_list_init(gadget_list_t *list)
 {
-    static int initialized = 0;
-    if (!initialized) {
-        x86_init(opt_none, NULL, NULL);
-        initialized = 1;
-    }
     list->head = NULL;
 }
 

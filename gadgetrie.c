@@ -7,6 +7,7 @@
 #include <gelf.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <libdis.h>
 
 #include "gadget.h"
 
@@ -73,6 +74,9 @@ int main(int argc, char **argv)
         printf("elf_getphdrnum() failed [%s]\n", elf_errmsg(-1));
         exit(1);
     }
+
+    /* Initialize libdis */
+    x86_init(opt_none, NULL, NULL);
 
     gadget_t gadgets;
     gadget_init(&gadgets);
