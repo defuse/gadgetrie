@@ -12,3 +12,6 @@ gadget_list.o: gadget_list.c
 
 tester: tester.c
 	gcc -m32 -static tester.c -o tester
+
+clean:
+	rm *.o gadget_finder
