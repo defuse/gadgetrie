@@ -18,7 +18,7 @@ void gadget_init(gadget_t *gadgets)
     gadgets->next = NULL;
 }
 
-int contains_zero(uint32_t n)
+int has_zero_byte(uint32_t n)
 {
     if ((n & 0xFF) == 0 || ((n >> 8) & 0xFF) == 0 || ((n >> 16) & 0xFF) == 0 || ((n >> 24) & 0xFF) == 0) {
         return 1;
@@ -60,7 +60,7 @@ work_backwards(gadget_t *gadgets, unsigned char *buffer, uint32_t offset, int po
             gadget_t *g;
             if ((g = gadget_list_find_instr(&gadgets->previous, buffer + instr_start, instr_actual_size)) != NULL) {
                 // ...see if the address of this one is better.
-                if (contains_zero(g->virtual_address)) {
+                if (has_zero_byte(g->virtual_address)) {
                     g->virtual_address = offset + instr_start;
                 }
                 continue;
@@ -90,7 +90,7 @@ void gadget_add(gadget_t *gadgets, unsigned char *buffer, size_t buffer_len, uin
     int i;
     for (i = 0; i < buffer_len; i++) {
         if (buffer[i] == RET) {
-            if (gadgets->virtual_address == 0 || contains_zero(gadgets->virtual_address)) {
+            if (gadgets->virtual_address == 0 || has_zero_byte(gadgets->virtual_address)) {
                 gadgets->virtual_address = offset + i;
             }
             work_backwards(gadgets, buffer, offset, i, MAX_BACKWARD_INSTRUCTIONS);
