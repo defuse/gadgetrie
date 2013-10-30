@@ -130,3 +130,9 @@ following tree.
                          | POP EDX (1) |
                          +-------------+
 
+### Credit
+
+The algorithm used here was presented in "Return Oriented Programming: Systems,
+Languages, and Applications" by Ryan Roemer, Erik Buchanan, Hovav Shacham, and
+Stefan Savage from UCSD.
+
