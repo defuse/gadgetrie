@@ -4,13 +4,13 @@
 #include <ctype.h>
 #include <string.h>
 
-int has_zero_byte(uint32_t n)
+int has_zero_byte(const uint32_t n)
 {
-    if ((n & 0xFF) == 0 || ((n >> 8) & 0xFF) == 0 || ((n >> 16) & 0xFF) == 0 || ((n >> 24) & 0xFF) == 0) {
-        return 1;
-    } else {
-        return 0;
-    }
+    return
+        (n & 0xFF) == 0 ||
+        ((n >> 8) & 0xFF) == 0 ||
+        ((n >> 16) & 0xFF) == 0 ||
+        ((n >> 24) & 0xFF) == 0;
 }
 
 void rstrip(char *text)
