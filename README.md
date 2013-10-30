@@ -8,3 +8,7 @@ fancy like constructing a payload for you, it's just a gadget finder.
 
 It only supports 32-bit ELF binaries.
 
+License
+-------
+
+This software uses the MIT license. See the LICENSE file.
