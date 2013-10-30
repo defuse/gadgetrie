@@ -99,20 +99,13 @@ void gadget_print(gadget_t *gadgets)
         char line[1000];
         gadget_t *cursor = gadgets;
         
-        uint32_t virtual_address = gadgets->virtual_address;
-
         while (cursor != NULL) {
             x86_disasm(cursor->instr, cursor->instr_len, 0, 0, &instr);
             x86_format_insn(&instr, line, sizeof(line), intel_syntax);
             rstrip(line);
             tab_to_space(line);
 
-            if (virtual_address == cursor->virtual_address) {
-                printf("0x%08x: %-50s\n", virtual_address, line);
-            } else {
-                printf("0x%08x: %-50s(ALT: 0x%08x)\n", virtual_address, line, cursor->virtual_address);
-            }
-            virtual_address += cursor->instr_len;
+            printf("0x%08x: %-50s\n", cursor->virtual_address, line);
 
             /* Set cursor to its parent in the tree (closer to the RET). */
             cursor = cursor->next;
