@@ -12,3 +12,13 @@ License
 -------
 
 This software uses the MIT license. See the LICENSE file.
+
+The following paragraph justifies the choice of license and does not have any
+affect on the copyright of this software.
+
+I normally use the GPL v3, but in this case I chose the MIT license over the GPL
+because this code is most likely to be used by researchers. I don't want to
+force researchers to GPL their much larger project in order to use my code. They
+know what's best for their project, and that might not be a GNU license.
+I believe that any responsible scientifically-minded researcher will do their
+best to keep the code open even when they don't have to.
